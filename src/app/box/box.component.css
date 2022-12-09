@@ -1,0 +1,15 @@
+button{
+    width: 100%;
+    height: 100%;
+    font-size: 60px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid blueviolet;
+    background-color: white;
+    color:blueviolet;
+    border-radius: 7px;
+}
+button:hover{
+    background-color: rgb(249, 243, 255);
+}
+

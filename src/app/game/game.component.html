@@ -1,0 +1,28 @@
+<div class="outer-cont">
+  <h1 *ngIf="freshPage">Let's Play X-O Game</h1>
+  <div class="player" *ngIf="freshPage">
+    <h1>Select <span> X </span> or <span> O </span>to start game</h1>
+    <div class="select_player">
+      <button *ngIf="freshPage" (click)="userStart('X')">X</button>
+      <button *ngIf="freshPage" (click)="userStart('O')">O</button>
+    </div>
+  </div>
+
+  <h3 class="win" *ngIf="!freshPage&&isWin"> You Win 🏆</h3>
+  <h3 class="lose" *ngIf="!freshPage&&isLose">You Lose 💩 </h3>
+  <h3 class="draw" *ngIf="!freshPage&&draw">Draw !!</h3>
+  <p *ngIf="!freshPage&&botTurn">Bot start first ...</p>
+  <p *ngIf="!freshPage&&yourTurn">Your turn</p>
+
+  <main *ngIf="!freshPage">
+    <div class="board" *ngFor="let row of [0,1,2]">
+      <app-box *ngFor="let col of [0,1,2] " [val]="dis[col][row]" (click)="move(col,row)">
+      </app-box>
+    </div>
+  </main>
+
+  <div class="newGame" *ngIf="!freshPage &&(isWin || isLose || draw)">
+    <button (click)="again()">Try again</button>
+    <button (click)="newGame()">Out</button>
+  </div>
+</div>
