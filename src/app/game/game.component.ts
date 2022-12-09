@@ -17,45 +17,43 @@ export class GameComponent implements OnInit {
   draw: boolean | undefined;
   isLose: boolean | undefined;
   newData: any;
-
   startFirst: number | undefined;
-  constructor(private DataService: DataService) {
-    // TODO document why this constructor is empty
+  yourTurn = false;
+  botTurn = false;
 
+  data = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+  dis = [['', '', ''], ['', '', ''], ['', '', '']];
+
+  constructor(private DataService: DataService) {
   }
 
   ngOnInit() {
-    
+
   }
 
   wait(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  yourTurn = false;
-  botTurn = false;
-
-  async randomStartFirst() {
-    this.startFirst = Math.floor(Math.random() * 2)
-
+  async randomStartFirst(data : number[][]) {
     if (this.startFirst == 0) {
       this.botTurn = true;
-      await this.wait(1000);
-      this.postData(this.data);
+      await this.wait(2500);
+      this.postData(data);
       this.botTurn = false;
     }
-    else{
-      this.yourTurn = true; 
+    else {
+      this.yourTurn = true;
+      await this.wait(1000);
+      this.yourTurn= false;
     }
-
   }
 
   postData(data: number[][]) {
     this.DataService.postdata(data).subscribe((data) => {
       this.newData = data;
-      console.log(this.newData);
+      console.log(this.newData.data);
       this.convartData(this.newData.data.field);
-
     })
   }
 
@@ -73,16 +71,22 @@ export class GameComponent implements OnInit {
 
   newGame() {
     this.squares = [['', '', ''], ['', '', ''], ['', '', '']]
-    this.dis = [['', '', ''], ['', '', ''], ['', '', '']]
+    this.dis = this.squares
+    this.data = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
     this.isWin = false;
     this.draw = false;
     this.isLose = false;
+    this.startFirst = Math.floor(Math.random() * 2)
     this.freshPage = !this.freshPage;
+    this.randomStartFirst(this.data);
   }
 
   again() {
     this.squares = [['', '', ''], ['', '', ''], ['', '', '']]
-    this.dis = [['', '', ''], ['', '', ''], ['', '', '']]
+    this.dis = this.squares
+    this.data
+    this.data = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    this.randomStartFirst(this.data);
     this.isWin = false;
     this.draw = false;
     this.isLose = false;
@@ -110,20 +114,18 @@ export class GameComponent implements OnInit {
     return this.xIsNext ? 'X' : 'O'
   }
 
-  dis = [['', '', ''], ['', '', ''], ['', '', '']];
+
 
   move(idx: number, idy: number) {
     if (!this.squares[idx][idy]) {
-
       this.squares[idx][idy] = this.player;
       this.setData(this.squares);
-
       this.dis[idx][idy] = this.squares[idx][idy]
     }
   }
 
 
-  data = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+
 
   setData(getData: []): void {
     for (let i = 0; i < 3; i++) {
@@ -156,7 +158,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  
+
 
 
 }

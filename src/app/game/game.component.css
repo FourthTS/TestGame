@@ -108,3 +108,21 @@ app-box{
 .lose{
     color:  rgb(220,20,60);
 }
+div>p{
+    font-size: 40px;
+    color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+div>p>span{
+    font-size: 30px;
+    color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

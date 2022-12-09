@@ -11,10 +11,17 @@
   <h3 class="win" *ngIf="!freshPage&&isWin"> You Win 🏆</h3>
   <h3 class="lose" *ngIf="!freshPage&&isLose">You Lose 💩 </h3>
   <h3 class="draw" *ngIf="!freshPage&&draw">Draw !!</h3>
-  <p *ngIf="!freshPage&&botTurn">Bot start first ...</p>
-  <p *ngIf="!freshPage&&yourTurn">Your turn</p>
 
-  <main *ngIf="!freshPage">
+  <div class="turn" *ngIf="!freshPage&&botTurn&&!yourTurn">
+    <p>Bot start first</p>
+    <span>🤖 : I'm thinking... wait a minute !!</span>
+  </div>
+
+  <div class="turn" *ngIf="!freshPage&&yourTurn&&!isWin&&!botTurn">
+    <p>Your turn</p>
+  </div>
+
+  <main *ngIf="!freshPage&&!botTurn&&!yourTurn">
     <div class="board" *ngFor="let row of [0,1,2]">
       <app-box *ngFor="let col of [0,1,2] " [val]="dis[col][row]" (click)="move(col,row)">
       </app-box>
